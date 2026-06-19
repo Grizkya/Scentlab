@@ -92,15 +92,7 @@ bool validasiInputAngka(int input) {
 // Nama Tugas: Pembuatan ASCII Art, Menu Utama (Do-While & Switch-Case)
 // =========================================================================
 void tampilkanLogoASCII() {
-    // Kamu bisa edit atau ganti tulisan ASCII Art ini sesuka hatimu
-    cout << "=========================================================\n";
-    cout << "  ____   _    ____  _____ _   _ __  __   ____ _     ___  \n";
-    cout << " |  _ \\ / \\  |  _ \\|  ___| | | |  \\/  | / ___| |   |_ _| \n";
-    cout << " | |_) / _ \\ | |_) | |_  | | | | |\\/| | |     | |    | |  \n";
-    cout << " |  __/ ___ \\|  _ <|  _| | |_| | |  | | |___  | |___ | |  \n";
-    cout << " |_| /_/   \\_\\_| \\_\\_|    \\___/|_|  |_|  \\____|_____|___| \n";
-    cout << "               SISTEM LAYERING PARFUM UMKM               \n";
-    cout << "=========================================================\n";
+    // tugas buat ascii art ku nanti
 }
 
 int main() {
