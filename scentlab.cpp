@@ -39,7 +39,7 @@ struct Campuran {
     int    takaran_ml;
     int    subtotal_harga;
 };
-
+// resep
 struct ResepGaleri {
     string   nama_parfum;
     string   vibes;
