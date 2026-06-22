@@ -178,7 +178,71 @@ void menuRacik(BibitParfum gudang[], int jml_gudang, ResepGaleri galeri[], int *
     cout << "|   Tekan [ENTER] untuk kembali ke Menu Utama...";
     cin.get();
 }
+void tampilGudang(BibitParfum gudang[], int jml_gudang, bool tampilHabis = false) {
+    cout << left<< "| " << setw(5)  << "ID"<< setw(18) << "Nama Bahan"<< setw(13) << "Aroma"<< setw(12) << "Stok(ml)"<< setw(13) << "Harga/ml"<< " Status    |\n";
+    cout << "|"; garis2(73, '-'); cout << "|\n";
+
+    bool adaBahan = false;
+    for (int i = 0; i < jml_gudang; i++) {
+        if (!tampilHabis && gudang[i].stok_ml == 0) continue;
+        adaBahan = true;
+
+        string status;
+        if (gudang[i].stok_ml == 0) {
+            status = "[HABIS]   ";
+        } else if (gudang[i].stok_ml < 50) {
+            status = "[Menipis] ";
+        } else {
+            status = "[Tersedia]";
+        }
+
+        cout << left<< "| " << setw(5)  << gudang[i].id<< setw(18) << gudang[i].nama<< setw(13) << gudang[i].aroma<< setw(12) << gudang[i].stok_ml<< "Rp " << setw(10) << gudang[i].harga_per_ml<< status << " |\n";
+    }
+    if (!adaBahan) 
+    cout << "|"; garis2(74, '-'); cout << "|\n";
+}
+
+void menuKatalog(BibitParfum gudang[], int jml_gudang) {
+    string opsiMenu[3] = {"Katalog Gudang (Lihat Stok)", "Restok Bahan Baku", "Kembali ke Menu Utama" };
+    int pilihanMenu;
+
+    do {
+        pilihanMenu = pilihMenu(opsiMenu, 3, "MANAJEMEN GUDANG & KATALOG");
+        
+        switch (pilihanMenu) {
+            case 0: // melihat katalog gudang
+                cetakHeaderKonten("KATALOG STOK GUDANG");
+                tampilGudang(gudang, jml_gudang, true);
+                cout << "| \n|   Tekan [ENTER] untuk kembali ke Submenu...";
+                cout << flush; // Pastikan teks langsung muncul
+                cin.get();
+                break;
+                
+            case 1: // Restok bahan baku
+                cetakHeaderKonten("RESTOK BAHAN GUDANG");
+                tampilGudang(gudang, jml_gudang, true);
+                int idRestok, jumlahRestok;
+                cout << "| \n";
+                bacaInt(idRestok, "Masukkan ID bahan baku: ", 1, jml_gudang);
+                
+                int found = -1;
+                for (int i = 0; i < jml_gudang; i++) {
+                    if (gudang[i].id == idRestok) { found = i; break; }
+                }
+                if (found == -1) {
+                    cout << "|   [!] ID Tidak ditemukan.\n";
+                } else {
+                    bacaInt(jumlahRestok, "Jumlah restok (ml): ", 1, 5000);
+                    restokBahan(&gudang[found], jumlahRestok);
+                }
+                cout << "| \n|   Tekan [ENTER] untuk kembali ke Submenu...";
+                cout << flush;
+                cin.get();
+                break;
+        }
+    } while (pilihanMenu != 2);
+}
+
 int main()
 {
-
 }
