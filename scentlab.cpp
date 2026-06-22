@@ -409,10 +409,10 @@ void tambahBahan(ResepGaleri *botol, BibitParfum *bahan, int takaran) {
 void autoNaming(ResepGaleri *botol) {
     if (botol->indeks_bahan > 0) {
         botol->nama_parfum = botol->riwayat[0].nama_bahan + " Signature";
-        botol->vibes       = "Eksperimental & Unik";
+        botol->vibes = "Eksperimental & Unik";
     } else {
         botol->nama_parfum = "Botol Kosong";
-        botol->vibes       = "-";
+        botol->vibes = "-";
     }
 }
 
@@ -440,7 +440,7 @@ void menuRacik(BibitParfum gudang[], int jml_gudang, ResepGaleri galeri[], int *
 
         int id_pilihan, takaran;
         bacaInt(id_pilihan, "ID Bahan yang ingin dimasukkan: ", 1, jml_gudang);
-        bacaInt(takaran,    "Takaran Bahan (ml)            : ", 1, botolBaru.kapasitas_maks);
+        bacaInt(takaran, "Takaran Bahan (ml)            : ", 1, botolBaru.kapasitas_maks);
 
         int found = -1;
         for (int i = 0; i < jml_gudang; i++) {
@@ -522,6 +522,39 @@ void cetakGaleri(ResepGaleri galeri[], int jml_galeri) {
     cout << "|   Tekan [ENTER] untuk kembali ke Menu Utama...";
     cin.get();
 }
-int main()
-{
+
+void keluardariMenu(bool &keluar) {
+    if (pilihYaTidak("Yakin ingin menutup software SCENTLAB?")) {
+        CLS;
+        garis(75, '=');
+        sentences("SCENTLAB - BY AMEL, FAUZAN, APRI, AKIFA, RASYAD, RIMA, DAN AL", GREEN);
+        sentences(">>> TERIMA KASIH & SAMPAI JUMPA <<<", YELLOW);
+        garis(75, '=');
+        cout << "\n";
+        keluar = true;
+    }
+}
+
+int main() {
+    BibitParfum gudang[MAX_GUDANG]; int jml_gudang = 0;
+    ResepGaleri galeri[MAX_GALERI]; int jml_galeri = 0;
+
+    inisialisasiGudang(gudang, &jml_gudang);
+    inisialisasiGaleri(galeri, &jml_galeri);
+    cover();
+    string opsiUtama[4] = {"Katalog Gudang & Restok Bahan", "Buka Meja Racik (Buat Parfum Baru)", "Lihat Galeri Parfum", "Keluar Aplikasi"};
+
+    int pilihanMenuUtama;
+    bool keluar = false;
+
+    do {
+        pilihanMenuUtama = pilihMenu(opsiUtama, 4, "MENU UTAMA", true);
+        switch (pilihanMenuUtama) {
+            case 0: menuKatalog(gudang, jml_gudang); break;
+            case 1: menuRacik(gudang, jml_gudang, galeri, &jml_galeri); break;
+            case 2: cetakGaleri(galeri, jml_galeri); break;
+            case 3: keluardariMenu(keluar); break;
+        }
+    } while (!keluar);
+    return 0;
 }
