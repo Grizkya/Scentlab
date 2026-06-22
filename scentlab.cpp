@@ -291,7 +291,6 @@ string bacaString(const string &pesan) {
         return hasil;
     }
 }
-//amel
 
 //ozan
 int pilihUkuranBotol() {
@@ -370,6 +369,7 @@ void menuRacik(BibitParfum gudang[], int jml_gudang, ResepGaleri galeri[], int *
     cout << "|   Tekan [ENTER] untuk kembali ke Menu Utama...";
     cin.get();
 }
+
 // rasyad
 void tampilGudang(BibitParfum gudang[], int jml_gudang, bool tampilHabis = false) {
     cout << left<< "| " << setw(5)  << "ID"<< setw(18) << "Nama Bahan"<< setw(13) << "Aroma"<< setw(12) << "Stok(ml)"<< setw(13) << "Harga/ml"<< " Status    |\n";
@@ -395,6 +395,13 @@ void tampilGudang(BibitParfum gudang[], int jml_gudang, bool tampilHabis = false
     cout << "|"; garis2(74, '-'); cout << "|\n";
 }
 
+// Amel
+void restokBahan(BibitParfum *bahan, int jumlah) {
+    bahan->stok_ml += jumlah;
+    cout << "|   [+] Stok " << bahan->nama << " ditambah " << jumlah << " ml.\n";
+}
+
+// rasyad
 void menuKatalog(BibitParfum gudang[], int jml_gudang) {
     string opsiMenu[3] = {"Katalog Gudang (Lihat Stok)", "Restok Bahan Baku", "Kembali ke Menu Utama" };
     int pilihanMenu;
@@ -434,6 +441,36 @@ void menuKatalog(BibitParfum gudang[], int jml_gudang) {
                 break;
         }
     } while (pilihanMenu != 2);
+}
+
+//Amel
+void tambahBahan(ResepGaleri *botol, BibitParfum *bahan, int takaran) {
+    if (takaran <= 0) {
+        cout << "|   [!] GAGAL: Takaran harus lebih dari 0 ml.\n";
+        return;
+    }
+    if (botol->indeks_bahan >= MAX_KOMPOSISI) {
+        cout << "|   [!] GAGAL: Batas maksimal " << MAX_KOMPOSISI << " bahan tercapai.\n";
+        return;
+    }
+    if (bahan->stok_ml < takaran) {
+        cout << "|   [!] GAGAL: Stok " << bahan->nama << " tidak mencukupi.\n";
+        return;
+    }
+    int sisaRuang = botol->kapasitas_maks - botol->total_volume;
+    if (takaran > sisaRuang) {
+        cout << "|   [!] GAGAL: Botol tidak muat. Sisa ruang: " << sisaRuang << " ml.\n";
+        return;
+    }
+    bahan->stok_ml -= takaran;
+    int idx = botol->indeks_bahan;
+    botol->riwayat[idx].nama_bahan = bahan->nama;
+    botol->riwayat[idx].takaran_ml = takaran;
+    botol->riwayat[idx].subtotal_harga = takaran * bahan->harga_per_ml;
+    botol->total_volume += takaran;
+    botol->total_harga += botol->riwayat[idx].subtotal_harga;
+    botol->indeks_bahan++;
+    cout << "|   [+] BERHASIL: " << takaran << " ml " << bahan->nama << " ditambahkan.\n";
 }
 
 int main()
