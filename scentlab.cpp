@@ -252,7 +252,45 @@ void inisialisasiGaleri(ResepGaleri galeri[], int *jml_galeri) {
     *jml_galeri = 2;
 }
 //apri
+bool bacaInt(int &hasil, const string &pesan, int minVal, int maxVal) {
+    while (true) {
+        cout << "| " << pesan;
+        cin >> hasil;
+        if (cin.fail()) {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "|   [!] Input tidak valid. Harap masukkan angka.\n";
+            continue;
+        }
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        if (hasil < minVal || hasil > maxVal) {
+            cout << "|   [!] Angka harus di antara " << minVal << " dan " << maxVal << ".\n";
+            continue;
+        }
+        return true;
+    }
+}
 
+string bacaString(const string &pesan) {
+    string hasil;
+    while (true) {
+        cout << "| " << pesan;
+        getline(cin, hasil);
+
+        bool kosong = true;
+        for (size_t i = 0; i < hasil.length(); i++) {
+            if (hasil[i] != ' ' && hasil[i] != '\t') {
+                kosong = false;
+                break;
+            }
+        }
+        if (kosong) {
+            cout << "|   [!] Input tidak boleh kosong.\n";
+            continue;
+        }
+        return hasil;
+    }
+}
 //amel
 
 //ozan
