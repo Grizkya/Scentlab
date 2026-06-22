@@ -472,7 +472,57 @@ void tambahBahan(ResepGaleri *botol, BibitParfum *bahan, int takaran) {
     botol->indeks_bahan++;
     cout << "|   [+] BERHASIL: " << takaran << " ml " << bahan->nama << " ditambahkan.\n";
 }
+//kifa
+void autoNaming(ResepGaleri *botol) {
+    if (botol->indeks_bahan > 0) {
+        botol->nama_parfum = botol->riwayat[0].nama_bahan + " Signature";
+        botol->vibes       = "Eksperimental & Unik";
+    } else {
+        botol->nama_parfum = "Botol Kosong";
+        botol->vibes       = "-";
+    }
+}
+//ozan
 
+
+//kifa
+void cetakGaleri(ResepGaleri galeri[], int jml_galeri) {
+    cetakHeaderKonten("HALL OF FAME - GALERI PARFUM");
+
+    if (jml_galeri == 0) {
+        sentences("[!] Galeri masih kosong. Racik parfum pertamamu!");
+    } else {
+        for (int i = 0; i < jml_galeri; i++) {
+            // 1. Baris Nama Parfum
+            string barisNama = "[" + to_string(i + 1) + "] " + galeri[i].nama_parfum;
+            sentencesLeft(barisNama, 4, YELLOW); // Indentasi 4 spasi dari kiri
+
+            // 2. Baris Vibes
+            string barisVibes = "Vibes     : " + galeri[i].vibes;
+            sentencesLeft(barisVibes, 7); // Indentasi 7 spasi
+
+            // 3. Baris Kapasitas
+            string barisKapasitas = "Kapasitas : " + to_string(galeri[i].total_volume) + " / " + to_string(galeri[i].kapasitas_maks) + " ml";
+            sentencesLeft(barisKapasitas, 7);
+
+            // 4. Baris Riwayat Bahan Komposisi
+            for (int j = 0; j < galeri[i].indeks_bahan; j++) {
+                ostringstream ss;
+                ss << "> " << left << setw(15) << galeri[i].riwayat[j].nama_bahan << right << setw(3) << galeri[i].riwayat[j].takaran_ml << " ml = Rp " << galeri[i].riwayat[j].subtotal_harga;
+                sentencesLeft(ss.str(), 9); // Indentasi 9 spasi agar menjorok ke dalam
+            }
+
+            // 5. Baris Modal Total
+            string barisModal = "Modal Total: Rp " + to_string(galeri[i].total_harga);
+            sentencesLeft(barisModal, 7, GREEN);
+            cout << "|"; garis2(73, '-'); cout << "|\n";
+        }
+    }
+
+    garis(75, '=');
+    cout << "|   Tekan [ENTER] untuk kembali ke Menu Utama...";
+    cin.get();
+}
 int main()
 {
 }
