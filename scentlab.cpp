@@ -97,6 +97,7 @@ void inisialisasiGaleri(ResepGaleri galeri[], int *jml_galeri) {
 
     *jml_galeri = 2;
 }
+// main
 int main()
 {
 
