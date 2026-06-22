@@ -178,6 +178,7 @@ void menuRacik(BibitParfum gudang[], int jml_gudang, ResepGaleri galeri[], int *
     cout << "|   Tekan [ENTER] untuk kembali ke Menu Utama...";
     cin.get();
 }
+// rasyad
 void tampilGudang(BibitParfum gudang[], int jml_gudang, bool tampilHabis = false) {
     cout << left<< "| " << setw(5)  << "ID"<< setw(18) << "Nama Bahan"<< setw(13) << "Aroma"<< setw(12) << "Stok(ml)"<< setw(13) << "Harga/ml"<< " Status    |\n";
     cout << "|"; garis2(73, '-'); cout << "|\n";
